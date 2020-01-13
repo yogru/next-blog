@@ -18,6 +18,6 @@ function Error ({children, ...props}){
   )
  }
  
-Error .getInitialProps = getInitialProps;
+Error.getInitialProps = getInitialProps;
 
 export default Error ;
