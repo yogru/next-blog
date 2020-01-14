@@ -1,21 +1,19 @@
 import  {useState} from 'react'
 import styled from 'styled-components';
+import BlogHead from '../components/blogs/BlogHead';
+import PostView from '../components/blogs/PostView';
+
 
 function getInitialProps(ctx){
- 
-  return {...ctx};
+   //return {...ctx};
 }
 
 function Home(){
-  const [i , set] = useState(11);
-    const SDIV = styled.div`
-     background-color:black;
-    `;
+  
   return (
-      < div onClick={()=> set(i+1)}>
-      { i }
-    <SDIV >112121</SDIV>
-  </div>
+    <>
+      <PostView />
+    </>
   );
 }
 

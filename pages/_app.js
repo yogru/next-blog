@@ -15,14 +15,6 @@ function configureStore(preloadedState, {isServer, req = null}) {
     preloadedState,
     composeWithDevTools(applyMiddleware(sagaMiddleware)),
   )
-  /**
-   * next-redux-saga depends on `sagaTask` being attached to the store during `getInitialProps`.
-   * It is used to await the rootSaga task before sending results to the client.
-   * However, next-redux-wrapper creates two server-side stores per request:
-   * One before `getInitialProps` and one before SSR (see issue #62 for details).
-   * On the server side, we run rootSaga during `getInitialProps` only:
-   */
-
   if (req || !isServer) {
     store.sagaTask = sagaMiddleware.run(rootSaga)
   }
@@ -37,6 +29,14 @@ class MyApp extends App {
     }
     return {pageProps}
   }
+
+  componentDidMount() {
+    //새로운 페이지 올라올때마다, 기존 스타일시트 삭제.
+    const jssStyles = document.querySelector('#jss-server-side')
+    if (jssStyles && jssStyles.parentNode)
+      jssStyles.parentNode.removeChild(jssStyles)
+  }
+
   render() {
     const {Component, pageProps, store} = this.props
     return (

@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@material-ui/core": "^4.8.3",
+    "@material-ui/icons": "^4.5.1",
+    "@material-ui/styles": "^4.8.2",
     "axios": "^0.19.1",
     "babel-plugin-styled-components": "^1.10.6",
     "dotenv": "^8.2.0",
