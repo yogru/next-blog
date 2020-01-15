@@ -3,7 +3,10 @@ const next = require('next');
 const lruCache = require('lru-cache');
 const dotenv = require('dotenv');
 const url = require('url');
- dotenv.config();
+const mongoose= require('mongoose');
+const bodyParser = require('body-parser')
+
+dotenv.config();
 
  const ssrCache = new lruCache({
     max:100,
@@ -36,8 +39,13 @@ async function renderLRU(req, res){
 }
 
 app.prepare().then( ()=>{
-     const server = express();
+    const server = express();
+
     server.use(express.static('out'));
+    server.use(bodyParser.json());
+    server.use(bodyParser.urlencoded({ extended: true }));
+
+    server.use('/post',require('./rest/post'));
 
     server.get('/' ,  (req, res)=>{
         res.redirect('/home');
@@ -52,4 +60,8 @@ app.prepare().then( ()=>{
          if(err) throw err;
          console.log(`>> listen Ready on PORT:${process.env.PORT}`)
      });
+
+    mongoose.connect(process.env.MONGO_URI ,{useNewUrlParser: true, useUnifiedTopology: true}).
+    then(()=>{console.log('connect MONGO')}).catch(e=>{console.log('mongo error: ',e)});
+
 })
