@@ -1,7 +1,6 @@
-const POST = require('../../shema/post');
 const mogoose = require('mongoose');
-const Post = mogoose.model('POST',POST);
-
+const POST = require('../../mongo/shema/post');
+const Post = mogoose.model('POST',POST.schema);
 //함수 조합해서 쓰자. 
 //지금은 일단 구현에 치중..
 
@@ -16,13 +15,18 @@ exports.readSubjects =  async (req,res)=>{
 
 exports.readPostBySubject=  async (req,res)=>{
   const {subject}= req.params;
+  let posts = undefined;
   try {
-    const posts= await Post.find({"subjects": subject }).exec();
+     posts= await Post.
+       find({"subjects": {$eq:subject,$exists:true,$not:{$size: 0} } }).exec();
+    if(posts.length === 0){
+       throw new Error('no-date');
+    }
     res.status(200).send({success:true,posts});  
   }catch(e){
     let stateCode = 500;
     if(posts)stateCode=404;
-    res.status(stateCode).send({success:false,...e});
+     res.status(stateCode).send({success:false,...e});
   }
 }
 
@@ -51,14 +55,20 @@ exports.removeById=  async (req,res)=>{
 }
 
 exports.create = async (req,res)=>{
-  const {title,subjects,writer,body }
+  const {title,subjects,writer,body,comment }
     = req.body;
-    
+  const {error}=POST.validate(req.body);
+  if(error){
+    res.status(400).send({...error});
+    return;
+  }
+
   const post = new Post({
     title, 
     subjects,
     writer,
     body,
+    comment,
   })
     try {
       await post.save();

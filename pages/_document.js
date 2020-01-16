@@ -7,7 +7,7 @@ export default class Document extends NextDocument {
   static async getInitialProps (ctx) {
     const styledComponentSheet = new StyledComponentSheets()
     const materialUiSheets = new MaterialUiServerStyleSheets()
-    const originalRenderPage = ctx.renderPage
+    const originalRenderPage = ctx.renderPage;
 
     try {
       ctx.renderPage = () =>

@@ -1,7 +1,10 @@
 import { createLoadAction } from '../sagaes/sagaCreateActions';
 import { useDispatch } from 'react-redux';
 import {useState} from 'react'
-import useRestLoad from '../hooks/useRestLoad'
+import useRestLoad from '../src/hooks/useRestLoad'
+import { useRouter } from 'next/router'
+
+
 function makeloadPropName(id){
    return `post-${id}`;
 }
@@ -15,13 +18,16 @@ function getInitialProps({store, ...ctx}){
 }
 
 function SagaTest(props){
+  const router = useRouter();
  const [postId ,setPostId] = useState(1);
  const dispatch = useDispatch();
  const [pending,success,failure,finish] = useRestLoad(makeloadPropName(postId));
 
  const myOnClick = (e)=>{
-   dispatch(createLoadAction(makeloadPropName(postId+1),url(postId+1)));
-   setPostId(postId+1);
+  //  dispatch(createLoadAction(makeloadPropName(postId+1),url(postId+1)));
+  //  setPostId(postId+1);
+   router.push('/home');
+
    e.stopPropagation();
  }
  console.log('--------------------------------')
@@ -32,7 +38,9 @@ function SagaTest(props){
  
  return(
      <div onClick={e=>myOnClick(e)} > 
-         hi..
+         hi..sfsdafsdf
+         asdfasdfasdfas
+         asdfasdfasdf
      </div>
   )
 }

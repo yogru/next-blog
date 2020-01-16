@@ -1,25 +1,7 @@
 import React from 'react'
 import {Provider} from 'react-redux'
 import App from 'next/app'
-import withRedux from 'next-redux-wrapper'
-import withReduxSaga from 'next-redux-saga'
-import {createStore, applyMiddleware} from 'redux'
-import createSagaMiddleware from 'redux-saga'
-import {rootReducer ,rootSaga} from '../sagaes';
-import { composeWithDevTools } from 'redux-devtools-extension';
-
-function configureStore(preloadedState, {isServer, req = null}) {
-  const sagaMiddleware = createSagaMiddleware()
-  const store = createStore(
-    rootReducer,
-    preloadedState,
-    composeWithDevTools(applyMiddleware(sagaMiddleware)),
-  )
-  if (req || !isServer) {
-    store.sagaTask = sagaMiddleware.run(rootSaga)
-  }
-  return store
-}
+import {withNextReduxSaga} from '../store';
 
 class MyApp extends App {
   static async getInitialProps({Component, ctx}) {
@@ -48,5 +30,19 @@ class MyApp extends App {
     )
   }
 }
+export default withNextReduxSaga(MyApp);
 
-export default withRedux(configureStore)(withReduxSaga(MyApp))
+/*
+function configureStore(preloadedState, {isServer, req = null}) {
+  const sagaMiddleware = createSagaMiddleware()
+  const store = createStore(
+    rootReducer,
+    preloadedState,
+    composeWithDevTools(applyMiddleware(sagaMiddleware)),
+  )
+  if (req || !isServer) {
+    store.sagaTask = sagaMiddleware.run(rootSaga)
+  }
+  return store
+}
+*/

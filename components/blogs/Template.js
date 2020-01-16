@@ -27,9 +27,7 @@ const defaultProps= {
 
          <main className={clsx(classes.content, {[classes.contentShift]: sideMenuOpen,})}>
             <div className={classes.drawerHeader} />
-            <Typography paragraph>
-                accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-            </Typography>
+             {children}
         </main>
     </div>
   );
