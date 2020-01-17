@@ -38,7 +38,6 @@ function propsStyleMather({ ...props }) {
     return makeStyles(theme => ({
         root: {
             display: 'flex',
-            flexDirection:'row',
             width:'100vw',
             height:'100vh',
         },
@@ -50,6 +49,8 @@ function propsStyleMather({ ...props }) {
             justifyContent: 'flex-end',
         },
         content: {
+            display:'flex',
+            flexDirection:'column',
             flexGrow: 1,
             padding: theme.spacing(3),
             transition: theme.transitions.create('margin', {

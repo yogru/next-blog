@@ -1,10 +1,21 @@
-import { PENDING,END} from '../actions/load';
+import { PENDING,LOAD,END} from '../actions/load';
 import { partActionReducer } from './utils'
 
 const initState = {
      [END]:{},
      [PENDING]:{}, 
 }
+
+
+export function selectorMapStateToProps(target,[dataName,isPendingName]){
+  return function(reduxState, componentProps){
+      return {
+         [isPendingName]: reduxState[LOAD][PENDING][target],
+         [dataName]: reduxState[LOAD][END][target],
+      }
+  }
+}
+
 
 const loadReducer =  partActionReducer({
     [END]:(draft, action)=>{

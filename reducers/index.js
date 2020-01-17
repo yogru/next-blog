@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
 import loadReducer from './loadReducer';
+import {LOAD} from '../actions/load'
 
 export default () => {
   const rootReducer = combineReducers({
-     load: loadReducer,
+     [LOAD]: loadReducer,
   });
   return rootReducer;
 }

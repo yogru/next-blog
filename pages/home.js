@@ -1,8 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {createAction,PENDING ,END,LOAD} from '../actions/load';
+import {createAction} from '../actions/load';
 import BlogTemplte from '../components/blogs/Template';
 import Typography from '@material-ui/core/Typography';
+import {selectorMapStateToProps} from '../reducers/loadReducer';
+import PostCard from '../components/blogs/PostCard';
+import PostCardContainer from '../components/blogs/PostCardContainer';
+
 
 const list={
     title:1,
@@ -44,14 +48,11 @@ const list={
 }
 
 const target = 'homeCard';
-const url="http://localhost:3000/post/topN/?count=1";
+const url="http://localhost:3000/post/topN/?count=3";
 
-function mapStateToProps(reduxState,componentProps){
-    return {
-      pending: reduxState['load'][PENDING][target],
-      cardData:reduxState['load'][END][target],
-    }
-}
+const cardSelector= 
+  selectorMapStateToProps(target,["cardData","cardPending"]);
+
 
 class Home extends Component {
   static async getInitialProps({store}) {
@@ -62,14 +63,18 @@ class Home extends Component {
   render() {
     console.log('state',this.props);
     return (
-        <BlogTemplte menuList={list} >
-           <Typography paragraph>
-               "hi..?"
-            </Typography>
-        <div>{this.props.staticData}</div>
+      <BlogTemplte menuList={list} >
+        <h2 align='center' style={{color:'gray'} }> 
+          최근 작성 포스트  
+        </h2>
+        <PostCardContainer >
+            <PostCard />
+            <PostCard />
+            <PostCard />
+        </PostCardContainer>
       </BlogTemplte>
     )
   }
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(cardSelector)(Home);

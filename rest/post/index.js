@@ -14,7 +14,6 @@ router.delete('/:id',middleWareValidObjectID,curd.removeById);
 router.get('/page/',paging);
 router.get('/topN/',topN);
 
-// 서브젝트 에러처리하기.
 router.get('/:subject' ,curd.readPostBySubject);
 
 module.exports= router;

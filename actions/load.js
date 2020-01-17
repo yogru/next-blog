@@ -1,6 +1,6 @@
 export const PENDING ='LOAD/PENDING';
-export const LOAD = 'LOAD-DATA-SAGA';
-export const END= '_/LOAD_END_';
+export const LOAD = 'REST/LOAD';
+export const END= 'LOAD/END';
 
 export function createAction(target,url){
     return {
