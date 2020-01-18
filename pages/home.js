@@ -7,6 +7,7 @@ import {selectorMapStateToProps} from '../reducers/loadReducer';
 import PostCard from '../components/blogs/PostCard';
 import PostCardContainer from '../components/blogs/PostCardContainer';
 
+import QuillEditor from '../components/QuillEditor';
 
 const list={
     title:1,
@@ -53,7 +54,6 @@ const url="http://localhost:3000/post/topN/?count=3";
 const cardSelector= 
   selectorMapStateToProps(target,["cardData","cardPending"]);
 
-
 class Home extends Component {
   static async getInitialProps({store}) {
     store.dispatch(createAction(target,url ));
@@ -63,15 +63,18 @@ class Home extends Component {
   render() {
     console.log('state',this.props);
     return (
+      // <BlogTemplte menuList={list} >
+      //   <h2 align='center' style={{color:'gray'} }> 
+      //     최근 작성 포스트  
+      //   </h2>
+      //   <PostCardContainer >
+      //       <PostCard />
+      //       <PostCard />
+      //       <PostCard />
+      //   </PostCardContainer>
+      // </BlogTemplte>
       <BlogTemplte menuList={list} >
-        <h2 align='center' style={{color:'gray'} }> 
-          최근 작성 포스트  
-        </h2>
-        <PostCardContainer >
-            <PostCard />
-            <PostCard />
-            <PostCard />
-        </PostCardContainer>
+                <QuillEditor />
       </BlogTemplte>
     )
   }

@@ -2,6 +2,8 @@ import React from 'react'
 import {Provider} from 'react-redux'
 import App from 'next/app'
 import {withNextReduxSaga} from '../store';
+import 'quill/dist/quill.snow.css';
+
 
 class MyApp extends App {
   static async getInitialProps({Component, ctx}) {
