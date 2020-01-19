@@ -14,6 +14,7 @@ dotenv.config();
 });
 
 const dev = process.env.NODE_ENV !== 'production';
+
 const app = next({
     dev,
   });
@@ -42,6 +43,9 @@ app.prepare().then( ()=>{
     const server = express();
 
     server.use(express.static('out'));
+    //
+    server.use(express.static('public'));
+
     server.use(bodyParser.json());
     server.use(bodyParser.urlencoded({ extended: true }));
 

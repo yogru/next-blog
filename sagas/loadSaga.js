@@ -5,7 +5,6 @@ import axios from 'axios';
 
 function* request(action){
     const { url ,target} = action;
-    console.log('hi saga..')
     yield put({
         type:PENDING,
         target,

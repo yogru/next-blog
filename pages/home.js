@@ -57,7 +57,6 @@ const cardSelector=
 class Home extends Component {
   static async getInitialProps({store}) {
     store.dispatch(createAction(target,url ));
-    console.log('hihihihi.',store, store.getState())
     return {staticData: 'Hello world!'}
   }
   render() {
