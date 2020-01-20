@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 // recursive compoent. 
-function MenuItem({onClick,offset,list}){
+function SideListItem({onClick,offset,list}){
    const [open , SetOpen]= useState(false);
    const classes = useStyles(offset);
    const handleClick = (e, list)=>{
@@ -30,12 +30,13 @@ function MenuItem({onClick,offset,list}){
             <ListItemText primary={list.title} />
          </ListItem>
          {
-           list.subList && list.subList.length>0 &&
+            Object.keys(list.subList).length>0 &&
            <Collapse className={classes.nested} in={open} timeout="auto" unmountOnExit>
             <List  component="nav" >
              {
-                 list.subList.map((sub,key)=>{
-                   return <MenuItem key={key} list={sub} offset={offset+0.5} /> 
+                 Object.keys(list.subList).map((key,idx)=>{
+                      const sub= list.subList[key];
+                      return <SideListItem key={idx} list={sub} offset={offset+0.5} /> 
                  })
              }
             </List>
@@ -45,4 +46,4 @@ function MenuItem({onClick,offset,list}){
     );
 }
 
-export default MenuItem;
+export default SideListItem;

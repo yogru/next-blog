@@ -9,6 +9,11 @@ import PropTypes from 'prop-types';
 const propTypes={
    submitFunc : PropTypes.func.isRequired,
 }
+const defaultProps= {
+  submitFunc:()=>{
+    console.log("검색 버튼 만들어야되..")
+  }
+}
 
 function CustomizedInputBase({submitFunc}) {
   const classes = useStyles();
@@ -53,5 +58,5 @@ const useStyles = makeStyles(theme => ({
 }));
 
 CustomizedInputBase.propTypes=propTypes;
+CustomizedInputBase.defaultProps=defaultProps;
 export default CustomizedInputBase;
-

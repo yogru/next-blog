@@ -1,5 +1,5 @@
-import {put,call,takeLatest,delay } from 'redux-saga/effects';
-import { LOAD,END,PENDING } from '../actions/load';
+import {put,call,takeEvery,delay } from 'redux-saga/effects';
+import { NAME_SPACE as load,END,PENDING } from '../actions/load';
 
 import axios from 'axios';
 
@@ -9,7 +9,8 @@ function* request(action){
         type:PENDING,
         target,
     });
-   //yield delay(3000);
+    
+  // yield delay(5000);
    try{
      const response= yield call(axios.get,url);
     yield put({
@@ -28,8 +29,8 @@ function* request(action){
    }
 }
 
- function * saga(){
-    yield takeLatest(LOAD,request);
+function * saga(){
+    yield takeEvery(load,request);
  }
 
 export default saga;

@@ -1,22 +1,32 @@
 const express = require('express');
-const curd = require('./crud');
 const paging = require('./paging');
 const topN = require('./topN');
 const {middleWareValidObjectID} = require('../../mongo/utils');
 const {myMulter,imageUploader} = require('./ImageUploader');
 
+const create = require('./create');
+const read =  require('./read');
+const update =  require('./update');
+const del = require('./delete');
+
 const router = express.Router();
 
-router.get('/' ,curd.readSubjects);
-router.post('/',curd.create);
-router.put('/:id',middleWareValidObjectID,curd.updateById);
-router.delete('/:id',middleWareValidObjectID,curd.removeById);
+//create
+router.post('/',create);
 
+//read
+router.get('/subject' ,read.readSubjects);
+router.get('/subject/:subject' ,read.readPostBySubject);
 router.get('/page/',paging);
 router.get('/topN/',topN);
 
-router.get('/:subject' ,curd.readPostBySubject);
+// update
+router.put('/:id',middleWareValidObjectID,update.updateById);
 
-router.post('/up/img', myMulter.single('img') ,  imageUploader);
+//delete
+router.delete('/:id',middleWareValidObjectID,del.removeById);
+
+//upload
+router.post('/up/img', myMulter.single('img') , imageUploader);
 
 module.exports= router;

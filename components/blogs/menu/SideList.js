@@ -7,18 +7,16 @@ import SideListItem from './SideListItem';
 const propTypes ={
     list:PropTypes.object.isRequired,
 }
-
 const defaultProps = {
 }
 
-function Menu({children,...props}){
+function SideList({children,...props}){
   const classes = useStyles();
   const {list} =props;
   
-  const Items=  Array(10).fill(true).map((_,key)=>{
-      return  <SideListItem key={key} offset={0} list = {props.list} />
+  const Items =Object.keys(list).map((key ,idx)=>{
+       return <SideListItem key={idx} offset={0} list = {list[key]}/>
   })
-
   return (
     <List component="nav" aria-labelledby="nested-list-subheader"
       className={classes.root}
@@ -37,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
   
-Menu.propTypes=propTypes
-Menu.defaultProps=defaultProps;
+SideList.propTypes=propTypes
+SideList.defaultProps=defaultProps;
 
-export default Menu;
+export default SideList;

@@ -1,10 +1,10 @@
-export const PENDING ='LOAD/PENDING';
-export const LOAD = 'REST/LOAD';
-export const END= 'LOAD/END';
+export const NAME_SPACE = 'loadUseSaga';
+export const PENDING =`${NAME_SPACE}/PENDING`;
+export const END= `${NAME_SPACE}/END`;
 
-export function createAction(target,url){
+export function loadAction(target,url){
     return {
-       type:LOAD,
+       type:NAME_SPACE,
        target,
        url,
     }
