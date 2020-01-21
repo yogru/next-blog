@@ -1,6 +1,6 @@
-const mogoose = require('mongoose');
+const mongoose = require('mongoose');
 const POST = require('../../mongo/shema/post');
-const Post = mogoose.model('POST',POST.schema);
+const Post = mongoose.model('POST',POST.schema);
 //함수 조합해서 쓰자. 
 //지금은 일단 구현에 치중..
 
@@ -10,6 +10,20 @@ exports.readSubjects =  async (req,res)=>{
     res.status(200).send({success:true,subjects:post});
   }catch(e){
     res.status(500).send({success:false});
+  }
+}
+
+exports.readById = async (req,res)=>{
+  const {id} =  req.params;
+  const {ObjectId } =  mongoose.Types;
+  try {
+    const post = await Post.findById(new ObjectId(id)).exec();
+    if(post === null) {
+      throw new Error('not find post');
+    }
+    res.status(200).send({post});  
+  }catch(e){
+    res.status(500).send({error:e.message});  
   }
 }
 

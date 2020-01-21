@@ -19,6 +19,7 @@ router.get('/subject' ,read.readSubjects);
 router.get('/subject/:subject' ,read.readPostBySubject);
 router.get('/page/',paging);
 router.get('/topN/',topN);
+router.get('/:id',middleWareValidObjectID,read.readById);
 
 // update
 router.put('/:id',middleWareValidObjectID,update.updateById);

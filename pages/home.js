@@ -10,6 +10,7 @@ import QuillEditor from '../components/QuillEditor';
 import mergeMapStateToProps from '../selector/mergeMapStateToProps'
 import loadSelector from '../selector/load'
 import Loading from '../components/Loading';
+import PostView from '../components/blogs/PostView';
 
 const homeCard = 'homeCard';
 const cardURL="http://localhost:3000/post/topN/?count=3";
@@ -19,7 +20,8 @@ const menuURL='http://localhost:3000/post/subject';
 
 const mapStateToProps = mergeMapStateToProps([
   loadSelector(homeCard,["cardData","cardPending"]),
-  loadSelector(homeMenuList,["menuList","listPending"])
+  loadSelector(homeMenuList,["menuList","listPending"]),
+  loadSelector('post',["curPost","postPending"]),
 ])
 
 class Home extends Component {
@@ -29,28 +31,28 @@ class Home extends Component {
     return {staticData: 'Hello world!'}
   }
   render() {
-    console.log('state',this.props);
-    let { menuList , cardData ,cardPending,listPending } = this.props;
-    
+    console.log('props:',this.props);
+    let { menuList ,curPost,
+      cardData,cardPending,listPending} = this.props;
+     
     if(menuList&&menuList.success){
         menuList = mkstructedList(menuList.data.subjects)
-      console.log(menuList)
     }
 
     return (
-      <Loading loading={listPending }>
         <BlogTemplte menuList={menuList} >
-           <Loading  loading ={cardPending}>
-                     card load..
-           </Loading>
+          {
+            curPost ? <PostView  post = {curPost.data.post} />:
+            <Loading  loading ={cardPending}>
+                card load..
+            </Loading>
+          }
         </BlogTemplte>
-      </Loading>
     )
   }
 }
 
 export default connect(mapStateToProps)(Home);
-
 
 function mkstructedList(subjects){
   let ret ={};
