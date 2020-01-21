@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import PropTypes from 'prop-types';
-import TopMenu from './TopMenu';
-import SideMenu from './SideMenu';
+import TopMenu from './top';
+import SideMenu from './side';
 
 const propTypes={
   list: PropTypes.object.isRequired,

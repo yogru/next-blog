@@ -10,6 +10,7 @@ const OuterDIV = styled.div`
   box-sizing:border-box;
   background-color:black;
 `
+
 const InnerDiv=  styled.div`
  display:flex;
  flex-wrap:nowrap;
@@ -26,7 +27,6 @@ const InnerDiv=  styled.div`
      }
   }
 `
-
 const PostCardContainer = ({children,...props})=>{
  return(
       <OuterDIV>
