@@ -20,11 +20,3 @@ const loadReducer = partActionReducer({
 }, initState);
 
 export default loadReducer
-// export function selectorMapStateToProps(target,[dataName,isPendingName]){
-//   return function(reduxState, componentProps){
-//       return {
-//          [isPendingName]: reduxState[LOAD][PENDING][target],
-//          [dataName]: reduxState[LOAD][END][target],
-//       }
-//   }
-// }

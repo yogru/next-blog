@@ -31,7 +31,7 @@ function NestList({children,...props}){
     > {
        Object.keys(list.subList).map((key, idx) => {
           return (
-          <NestItem   key={idx} open  parentTitle={ [list.title] }
+          <NestItem   key={idx}  parentTitle={ [list.title] }
              onClick={itemClick} 
            list={list.subList[key]} />)
         })

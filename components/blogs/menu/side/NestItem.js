@@ -1,10 +1,9 @@
 import {useState ,useRef} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
-import List from '@material-ui/core/List';
+import { makeStyles,ListItem ,ListItemText,ListItemIcon,
+   Collapse ,List } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import FolderIcon from '@material-ui/icons/Folder';
+import DescriptionIcon from '@material-ui/icons/Description';
                          
 const propTypes={
    onClick:PropTypes.func,
@@ -17,6 +16,12 @@ const defaultProps={
    open:false,
    offset:0,
 }
+
+{/* <ListItemAvatar>
+<Avatar>
+  <FolderIcon />
+</Avatar>
+</ListItemAvatar> */}
 
 // recursive compoent. 
 function NestItem({onClick,offset,list, ...props}){
@@ -32,8 +37,15 @@ function NestItem({onClick,offset,list, ...props}){
    return (
       <>
          <ListItem button onClick={handleClick}>
+               <ListItemIcon>
+                 {
+                  list.idList.length >= 2 ? 
+                  <FolderIcon /> : <DescriptionIcon/>
+                 }
+               </ListItemIcon>
             <ListItemText primary={list.title} />
          </ListItem>
+
          {
             Object.keys(list.subList).length>0 &&
            <Collapse className={classes.nested} in={open} timeout="auto" unmountOnExit>

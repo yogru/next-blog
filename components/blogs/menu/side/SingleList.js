@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { IconButton, makeStyles, Box , ListItem , List, ListItemText } from '@material-ui/core';
+import { IconButton, makeStyles, Box, ListItem, List, ListItemText } from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
@@ -14,8 +14,8 @@ const defaultProps = {
 
 const SingleList = ({ list, pageOfCount, onItemClick, ...props }) => {
     const [curPageIdx, setPageIdx] = useState(1);
-    const { pageBox,listSty,leftArrowBtn, 
-         pageLeftArrow, pageRightArrow } = useStyles();
+    const { pageBox, listSty, leftArrowBtn,
+        pageLeftArrow, pageRightArrow } = useStyles();
 
     function next(plus) {
         const cirPageNum = createCircleNum(getMaxPageCount(list, pageOfCount))
@@ -24,7 +24,7 @@ const SingleList = ({ list, pageOfCount, onItemClick, ...props }) => {
     const itemArr = createPageOfIndex(Object.keys(list), pageOfCount)(curPageIdx);
     const items = itemArr.map((title, key) => {
         return (
-            <ListItem key={key} button onClick={e=>{onItemClick(e,title)}}>
+            <ListItem key={key} button onClick={e => { onItemClick(e, title) }}>
                 <ListItemText primary={title} />
             </ListItem>
         )
