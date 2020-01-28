@@ -1,25 +1,30 @@
-const mogoose = require('mongoose');
+const mongoose = require('mongoose');
 const COMMENT = require('./comment');
 const Joi = require('joi');
-const POST = new mogoose.Schema();
-const {getJoiValidate} = require('../utils')
- 
+const POST = new mongoose.Schema();
+const {getJoiValidate} = require('../utils');
+Joi.objectId =require('joi-objectid')(Joi);
+
 POST.add({
-  title:{type:String ,required:true },
-  subjects:[String],
+  title:{type:String ,required:true},
+  subjectID:{type:mongoose.ObjectId,required:true},
   time:{type: Date, default: Date.now},
   writer:{type:String ,default:'kyb'},
   body:{type:String},
+  imgesSrc:[String],
   comment:[COMMENT.schema],
 })
+POST.index({subjectID:-1,title:-1 },{unique: true});
 
 const joiObjectKeys = {
   title:Joi.string().required(),
   writer:Joi.string(),
-  subjects:Joi.array().items(Joi.string()).required(),
+  subjectID:Joi.objectId(),
   body:Joi.string().required(),
+  imgesSrc:Joi.array().items(Joi.string()),
   comment:Joi.array().items(COMMENT.joiObjectKeys),
 }
+
 const joiSchema= Joi.object().keys(joiObjectKeys);
 
 module.exports= {

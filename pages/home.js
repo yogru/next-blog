@@ -6,7 +6,7 @@ import PostCard from '../components/blogs/PostCard';
 import PostCardContainer from '../components/blogs/PostCardContainer';
 import BlogTemplte from '../components/blogs';
 import mergeMapStateToProps from '../selector/mergeMapStateToProps'
-import loadSelector from '../selector/load'
+import loadSelector from '../selector/connectLoad'
 import Loading from '../components/Loading';
 import PostView from '../components/blogs/PostView';
 
@@ -14,75 +14,52 @@ const homeCard = 'homeCard';
 const cardURL="http://localhost:3000/post/topN/?count=3";
 
 const homeMenuList = 'homeMenuList';
-const menuURL='http://localhost:3000/post/subject';
+const menuURL='http://localhost:3000/subject';
 
 const mapStateToProps = mergeMapStateToProps([
   loadSelector(homeCard,["cardData","cardPending"]),
-  loadSelector(homeMenuList,["menuList","listPending"]),
+  loadSelector(homeMenuList,["loadMenuList","listPending"]),
   loadSelector('post',["curPost","postPending"]),
 ])
 
 class Home extends Component {
   static async getInitialProps({store}) {
-     store.dispatch(loadAction(homeCard,cardURL));
+    // store.dispatch(loadAction(homeCard,cardURL));
      store.dispatch(loadAction(homeMenuList,menuURL));
     return {staticData: 'Hello world!'}
   }
   render() {
-    console.log('props:',this.props);
-    let { menuList ,curPost,
-      cardData,cardPending,listPending} = this.props;
+    const { loadMenuList,curPost }  =  this.props;
+    let {data:menuList,success:menuSuc}= loadMenuList;
+    menuList =(menuSuc&& menuList)||{};
+
+    // let { menuList ,curPost,
+    //   cardData,cardPending,listPending} = this.props;
      
-    if(menuList&&menuList.success){
-        menuList = mkstructedList(menuList.data.subjects)
-    }
+     console.log(menuList);
 
     return (
-        <BlogTemplte menuList={menuList} >
+    <BlogTemplte menuList={menuList} >
           {
-            curPost ? <PostView  post = {curPost.data.post} />:
-            <Loading  loading ={cardPending}>
-                card load..
-            </Loading>
+              curPost ? <PostView  post = {curPost.data.post} />:
+                           <div> unload post </div>
           }
-        </BlogTemplte>
+    </BlogTemplte>
+
+        // <BlogTemplte menuList={menuList} >
+        //   {
+        //     curPost ? <PostView  post = {curPost.data.post} />:
+        //     <Loading  loading ={cardPending}>
+        //         card load..
+        //     </Loading>
+        //   }
+        // </BlogTemplte>
     )
   }
 }
 
 export default connect(mapStateToProps)(Home);
 
-function mkstructedList(subjects){
-  let ret ={};
-  for(let items of subjects ){
-    let cursor = ret;
-     for(let item of  mkList(items) ){
-         const {title,id} = item;
-         if(!cursor[title]){
-          cursor[title] ={
-            title,
-            idList:[id,],
-            subList:{},
-          }
-         }else{
-            cursor[title].idList.push(id);
-         }
-         cursor =cursor[title].subList;
-       }
-  }
-  return ret;
-}
-
-function mkList(subObject){
- const {subjects , _id} =subObject;
- const mapping = subjects.map((obj ,key)=>{
-    return{ 
-         title:obj,
-         id:_id,
-      }
-})
- return mapping
-}
 
       // <BlogTemplte menuList={list} >
       //   <h2 align='center' style={{color:'gray'} }> 

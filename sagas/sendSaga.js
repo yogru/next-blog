@@ -5,8 +5,9 @@ import axios from 'axios';
 function* response(action){
    const { data ,url,onSucceess,onFailure} = action.payload;
    try{
-     const res = yield call(axios.post,url,data)
-      onSucceess&& onSucceess(res);
+     const res = yield call(axios.post,url,data);
+     console.log(res.data);
+       onSucceess&& onSucceess(res.data,res);
    }catch(e){
       onFailure && onFailure(e);
    }

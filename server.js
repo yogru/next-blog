@@ -6,11 +6,12 @@ const url = require('url');
 const mongoose= require('mongoose');
 const bodyParser = require('body-parser')
 
+mongoose.set('useCreateIndex', true);
 dotenv.config();
 
- const ssrCache = new lruCache({
+const ssrCache = new lruCache({
     max:100,
-    maxAge:1000 *60,
+    maxAge:1000 *60, 
 });
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -49,8 +50,11 @@ app.prepare().then( ()=>{
     server.use(bodyParser.json());
     server.use(bodyParser.urlencoded({ extended: true }));
 
+    //rest
     server.use('/post',require('./rest/post'));
+    server.use('/subject',require('./rest/subject'));
 
+    
     server.get('/' ,  (req, res)=>{
         res.redirect('/home');
     })

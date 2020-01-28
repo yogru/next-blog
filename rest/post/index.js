@@ -15,19 +15,21 @@ const router = express.Router();
 router.post('/',create);
 
 //read
-router.get('/subject' ,read.readSubjects);
-router.get('/subject/:subject' ,read.readPostBySubject);
-router.get('/page/',paging);
-router.get('/topN/',topN);
+router.get('/titles/:subjectID' ,read.getTitleBySubjectID);
 router.get('/:id',middleWareValidObjectID,read.readById);
 
-// update
-router.put('/:id',middleWareValidObjectID,update.updateById);
+// router.get('/subject' ,read.readSubjects);
+// router.get('/subject/:subject' ,read.readPostBySubject);
+// router.get('/page/',paging);
+// router.get('/topN/',topN);
 
-//delete
-router.delete('/:id',middleWareValidObjectID,del.removeById);
+// // update
+// router.put('/:id',middleWareValidObjectID,update.updateById);
 
-//upload
-router.post('/up/img', myMulter.single('img') , imageUploader);
+// //delete
+// router.delete('/:id',middleWareValidObjectID,del.removeById);
+
+// //upload
+// router.post('/up/img', myMulter.single('img') , imageUploader);
 
 module.exports= router;

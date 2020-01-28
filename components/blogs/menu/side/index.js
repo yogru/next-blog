@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { makeStyles, Drawer, Divider } from '@material-ui/core';
+import {dispatch, useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
-import NestList from './NestList';
+import Nest from './Nest';
 import Header from './Header';
 import SingleList from './SingleList';
+import { loadAction } from '../../../../actions/load'
+//import NestList from './NestList';
 
 const propTypes = {
   list: PropTypes.object.isRequired,
@@ -20,7 +23,7 @@ function SideMenu({ children, ...props }) {
   const [curList, setCurList] = useState(props.list);
   const [selMenu, setMenu] = useState();
   const { drawer, drawerPaper } = useStyles(props);
-
+   const dispatch = useDispatch();
   function titleClick() {
     if (!selMenu) return handleClose;
     return (e) => {
@@ -33,6 +36,11 @@ function SideMenu({ children, ...props }) {
     setMenu(name);
     setCurList(curList[name]);
   }
+  function onNestItemClick(postID){
+       console.log('onNest',postID);
+       dispatch(loadAction('post',`http://localhost:3000/post/${postID}`))
+       handleClose();
+  }
 
   return (
     <Drawer anchor='left' className={drawer} open={open}
@@ -42,10 +50,10 @@ function SideMenu({ children, ...props }) {
       <Header title={selMenu} onClose={handleClose}
         onTitleClick={titleClick()} />
       <Divider />
-      {
-        selMenu ? <NestList list={curList} handleClose={handleClose} /> :
+       {
+        selMenu ? <Nest list={curList} onItemClick={onNestItemClick} handleClose={handleClose} /> :
                   <SingleList list={curList}  onItemClick={sigleItemClick} />
-      }
+       }
     </Drawer>
   )
 }

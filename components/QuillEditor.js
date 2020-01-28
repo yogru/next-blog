@@ -81,11 +81,10 @@ function Editor({ categoryList }) {
             const payload = {
                 url: 'http://localhost:3000/post/',
                 data: { title,subjects:sub, body },
-                onSuccess: (res) => { console.log(res) },
+                onSuccess: (data) => { console.log('suc:',data) },
                 onFailure: (res) => { console.log(res) },
             }
             dispatch(sendAction(payload))
-
         }
     }
     return (

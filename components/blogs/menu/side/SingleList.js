@@ -21,14 +21,16 @@ const SingleList = ({ list, pageOfCount, onItemClick, ...props }) => {
         const cirPageNum = createCircleNum(getMaxPageCount(list, pageOfCount))
         setPageIdx(cirPageNum(curPageIdx - 1, plus) + 1);
     }
-    const itemArr = createPageOfIndex(Object.keys(list), pageOfCount)(curPageIdx);
-    const items = itemArr.map((title, key) => {
+
+    const itemArr = list&&createPageOfIndex(Object.keys(list), pageOfCount)(curPageIdx);
+    const items = itemArr&&itemArr.map((title, key) => {
         return (
             <ListItem key={key} button onClick={e => { onItemClick(e, title) }}>
                 <ListItemText primary={title} />
             </ListItem>
         )
     })
+
     return (
         <>
             <List component="nav" className={listSty}>{items}</List>

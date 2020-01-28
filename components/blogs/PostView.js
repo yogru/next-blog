@@ -1,6 +1,10 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux'
+import { loadAction } from '../../actions/load'
+import loadSelector from '../../selector/hookLoad';
+
 import TitleInput from '../TitleInput';
 
 const propTypes = {
@@ -8,17 +12,27 @@ const propTypes = {
 }
 
 const PostView = ({ post, ...props }) => {
-   const { subjects, title, body, writer, time, comment } = post;
-   const categorty = subjects.reduce((acc, item) => {
-      if (!acc) { acc = ` ${item} `; return acc; }
-      return acc += `/ ${item} `;
-   }, null);
+   const { subjectID, title, body, writer, time, comment } = post;
+   const dispatch =useDispatch();
+   const loadSubject = 'loadSubject'
+   const [sub] = useSelector(loadSelector(loadSubject),[subjectID] )
+   useEffect(()=>{
+      dispatch(loadAction(loadSubject,`http://localhost:3000/subject/${subjectID}` ))
+   },[subjectID])
+
    const desc = `${writer} | ${new Date(time)}`
 
    return (
       <Container>
          <Header>
-            <Category > {categorty} </Category>
+            <Category > {
+                sub && sub.data &&sub.data.subject&&
+                 sub.data.subject.reduce((acc, item) => {
+                     if (!acc) { acc = ` ${item} `; return acc; }
+                     return acc += `/ ${item} `;
+                  }, null)
+               }
+            </Category>
             <TitleInput readOnly value={title} />
             <Description>{desc} </Description>
          </Header>
