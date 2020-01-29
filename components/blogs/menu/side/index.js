@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import { makeStyles, Drawer, Divider } from '@material-ui/core';
+import { makeStyles, Drawer, Divider ,Box } from '@material-ui/core';
 import {dispatch, useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
-import Nest from './Nest';
+import NestMenu from './nestMenu';
 import Header from './Header';
 import SingleList from './SingleList';
 import { loadAction } from '../../../../actions/load'
-//import NestList from './NestList';
+import ModifyMenu from './ModifyMenu';
+
 
 const propTypes = {
   list: PropTypes.object.isRequired,
@@ -36,8 +37,7 @@ function SideMenu({ children, ...props }) {
     setMenu(name);
     setCurList(curList[name]);
   }
-  function onNestItemClick(postID){
-       console.log('onNest',postID);
+  function onDocClick(postID){
        dispatch(loadAction('post',`http://localhost:3000/post/${postID}`))
        handleClose();
   }
@@ -49,11 +49,14 @@ function SideMenu({ children, ...props }) {
     >
       <Header title={selMenu} onClose={handleClose}
         onTitleClick={titleClick()} />
-      <Divider />
-       {
-        selMenu ? <Nest list={curList} onItemClick={onNestItemClick} handleClose={handleClose} /> :
-                  <SingleList list={curList}  onItemClick={sigleItemClick} />
-       }
+      <Divider/>
+        {
+          selMenu ? <ModifyMenu list={curList.subList}>
+                      <NestMenu list={curList.subList} onDocClick={onDocClick}/>
+                  </ModifyMenu> :
+                  // curList->subList 만들어야됨.
+                  <SingleList list={curList} onItemClick={sigleItemClick}  />
+        }
     </Drawer>
   )
 }

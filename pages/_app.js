@@ -2,8 +2,8 @@ import React from 'react'
 import {Provider} from 'react-redux'
 import App from 'next/app'
 import {withNextReduxSaga} from '../store';
+import '../static/css/contextMenu.css';
 import 'quill/dist/quill.snow.css';
-
 
 class MyApp extends App {
   static async getInitialProps({Component, ctx}) {
@@ -34,17 +34,3 @@ class MyApp extends App {
 }
 export default withNextReduxSaga(MyApp);
 
-/*
-function configureStore(preloadedState, {isServer, req = null}) {
-  const sagaMiddleware = createSagaMiddleware()
-  const store = createStore(
-    rootReducer,
-    preloadedState,
-    composeWithDevTools(applyMiddleware(sagaMiddleware)),
-  )
-  if (req || !isServer) {
-    store.sagaTask = sagaMiddleware.run(rootSaga)
-  }
-  return store
-}
-*/
