@@ -9,7 +9,7 @@ function handleClick(e, data) {
 
 const createFolder = (e , data)=>{
   const { dispatch  } = data;
-  dispatch({type:'createFolder',payload:{target:'folder'}});
+  dispatch({type:'createFolder',payload:{type:'folder'}});
 } 
 const createDoc = (e, data)=>{
   const { command:dispatch } = data;

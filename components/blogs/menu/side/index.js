@@ -8,7 +8,6 @@ import SingleList from './SingleList';
 import { loadAction } from '../../../../actions/load'
 import ModifyMenu from './ModifyMenu';
 
-
 const propTypes = {
   list: PropTypes.object.isRequired,
   drawerWidth: PropTypes.number,

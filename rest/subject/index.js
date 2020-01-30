@@ -10,10 +10,9 @@ const router = express.Router();
 
 //create
 router.post('/',create);
-
 //read...
-router.get('/' ,read.fullscanSubject);
 router.get('/:id',middleWareValidObjectID,read.readByID);
+router.get('/parent/:parentSubject' ,read.subjectsByPID);
 
 // //read
 // router.get('/subject' ,read.readSubjects);

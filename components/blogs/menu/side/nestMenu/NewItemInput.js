@@ -1,14 +1,16 @@
 import {useState} from 'react';
-import {makeStyles ,FormControl, Input, InputAdornment, IconButton } from '@material-ui/core';
+import {makeStyles ,FormControl, InputLabel ,Input, InputAdornment, IconButton } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 const propTypes = {}
 const defaultProps = {
-    value:'test',
+    value:'',
     onChange:(e)=>{
     },
     onSubmit:()=>{console.log('submit..')},
-    onCancel:()=>{console.log('cancel')}
+    onCancel:()=>{console.log('cancel')},
+    error:false,
+    helperText:"",
 }
 
 const useStyles = makeStyles(theme => ({
@@ -22,23 +24,35 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-
-const NewItemInput = ({ children,offset,value:val,onChange,onSubmit,onCancel , ...props }) => {
-    //className={clsx(classes.margin, classes.textField)
+const NewItemInput = ({ children,offset,value:val,error, message,
+        onChange,onSubmit,onCancel , ...props }) => {
+       
+            
     const [value, setValue] =useState(val) 
-    const {root} = useStyles(offset);       
+    const { root } = useStyles(offset);       
     const onInputChange= (e)=>{
         onChange&&onChange(e, e.target.value);
        setValue(e.target.value);
     }
     return (
-        <FormControl className={root} >
-            <Input id="NewItem-Input" value={value} type='text'
+        <FormControl className={root}  autoComplete="off" >
+            {
+               message &&<InputLabel  className={root} shrink htmlFor="NewItem-Input">
+                              {message}
+                          </InputLabel>
+            }
+            <Input id="NewItem-Input" value={value} type='text'   error={error}
                  onChange={onInputChange}
+                 autoComplete="off" 
+                 placeholder=" 입력해주세요 "
+                 inputProps={{
+                    'aria-label': 'weight',
+                  }}
+       
                 endAdornment={
                     <InputAdornment position="end">
                         <IconButton size='small' color='primary'
-                            onClick={onSubmit}
+                            onClick={(e)=>onSubmit(e,value)}
                         >
                             <CheckIcon />
                         </IconButton>
@@ -50,6 +64,7 @@ const NewItemInput = ({ children,offset,value:val,onChange,onSubmit,onCancel , .
                     </InputAdornment>
                 }
             />
+           
         </FormControl>
     );
 }

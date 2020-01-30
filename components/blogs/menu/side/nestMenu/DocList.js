@@ -20,7 +20,6 @@ function DocList({ subJectID, onDocClick, onLoad }) {
         loadDoc&&onLoad( loadDoc.data);
     }, [loadDoc])
 
-
     return (
         <>{
             loadDoc&& loadDoc.data && Object.keys(loadDoc.data).map((key) => {

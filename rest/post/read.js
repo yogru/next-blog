@@ -29,32 +29,3 @@ exports.readById = async (req,res)=>{
     res.status(500).send({error:e.message});  
   }
 }
-
-// exports.readSubjects =  async (req,res)=>{
-//   try {
-//  //  const subject = await Subject.find({},{name:1}).exec();
-//    const subject = await Subject.find().exec();
-//    res.status(200).send({subject});
-//   }catch(e){
-//     res.status(500).send({});
-//   }
-// }
-
-
-// exports.readPostBySubject=  async (req,res)=>{
-//   const {subject}= req.params;
-//   try {
-//     if(!subject)throw new Error('no-date');
-    
-//     const findedSub = await Subject.find({"name":{$eq:subject}}).exec();
-//     if(!findedSub)throw new Error('no-date');
-
-//    const posts= await Post.find({"subject": {$eq:findedSub}}).exec();
-//      if(!posts || posts.length === 0)throw new Error('no-date');
-//     res.status(200).send({posts});  
-//   }catch(e){
-//      res.status(500).send({});
-//   }
-// }
-
-// find({"subject": {$eq:subject,$exists:true,$not:{$size: 0} } }).exec();

@@ -5,7 +5,6 @@ import Menu from './menu/index';
 import PropTypes from 'prop-types';
 
 const propTypes={
-    menuList: PropTypes.object.isRequired,
     sideMenuOpen:PropTypes.bool,
     drawerWidth:PropTypes.number,
 }
@@ -14,12 +13,12 @@ const defaultProps= {
     drawerWidth:240,
 }
  function Blog({children,...props}) {
-    const {sideMenuOpen,menuList ,drawerWidth} = props;
+    const {sideMenuOpen,drawerWidth} = props;
     const {root,content ,contentHeader} =  useStyles(props);
     return (
         <div className={root}>
             <CssBaseline />
-            <Menu sideOpen={sideMenuOpen} drawerWidth={drawerWidth} list={menuList} />
+            <Menu sideOpen={sideMenuOpen} drawerWidth={drawerWidth} />
             <main className={content}>
                 <div className={contentHeader} />
                 {children}

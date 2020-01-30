@@ -14,6 +14,7 @@ POST.add({
   imgesSrc:[String],
   comment:[COMMENT.schema],
 })
+
 POST.index({subjectID:-1,title:-1 },{unique: true});
 
 const joiObjectKeys = {
