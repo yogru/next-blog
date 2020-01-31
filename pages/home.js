@@ -15,7 +15,7 @@ const homeCard = 'homeCard';
 const cardURL = "http://localhost:3000/post/topN/?count=3";
 
 const mapStateToProps = mergeMapStateToProps([
-  loadSelector(homeCard, ["cardData", "cardPending"]),
+  //loadSelector(homeCard, ["cardData", "cardPending"]),
  //loadSelector(homeMenuList, ["loadMenuList", "listPending"]),
   loadSelector('post', ["curPost", "postPending"]),
 ])
@@ -32,11 +32,14 @@ class Home extends Component {
     // // let { menuList ,curPost,
     // //   cardData,cardPending,listPending} = this.props;
     // console.log(menuList);
-
+    const {postPending  , curPost} = this.props;
 
     return (
      <BlogTemplte >
-
+           {
+              (postPending!==undefined&&!postPending)
+                &&<PostView  post = {curPost.data.doc} />
+           }
            {/* {
                curPost ? <PostView  post = {curPost.data.post} />:
                            <div> unload post </div>

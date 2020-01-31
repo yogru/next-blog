@@ -2,14 +2,12 @@ import { useState } from 'react';
 import { makeStyles, Drawer, Divider, } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import Header from './Header';
-//import {useDispatch} from 'react-redux';
-//import NestMenu from './nestMenu';
-//import ModifyMenu from './ModifyMenu';
-//import { loadAction } from '../../../../actions/load'
 import { useSelector } from 'react-redux'
 import loadSelector from '../../../../selector/hookLoad';
 import SingleList from './SingleList';
-import Nest from './Nest';
+import Nest from './nest/Nest';
+import CrudMenu from './CrudMenu';
+
 
 const propTypes = {
   drawerWidth: PropTypes.number,
@@ -24,9 +22,8 @@ function SideMenu({ children, ...props }) {
   const { open, handleClose } = props;
   const { drawer, drawerPaper } = useStyles(props);
   const [loadList , pendding]= useSelector(loadSelector('menuList'));
-  console.log(loadList,pendding);
-
   const [curSubject, setCurSubject] =  useState();
+  
   function titleClick() {
     if (!curSubject) return handleClose;
     return (e) => {
@@ -34,10 +31,6 @@ function SideMenu({ children, ...props }) {
     }
   }
 
-//   function onDocClick(postID){
-//        dispatch(loadAction('post',`http://localhost:3000/post/${postID}`))
-//        handleClose();
-//   }
   return (
     <Drawer anchor='left' className={drawer} open={open}
       variant="persistent"
@@ -51,7 +44,10 @@ function SideMenu({ children, ...props }) {
              pendding? <div>로딩 중 </div>:
                !curSubject ? <SingleList list={loadList.data} 
                               onItemClick={(e,sub)=>setCurSubject(sub)}/>:
-                             <Nest parentSubjectId ={curSubject._id} />
+                           <CrudMenu>
+                              <Nest parentSubjectId ={curSubject._id} />
+                           </CrudMenu>
+                             
          }
 
     </Drawer>

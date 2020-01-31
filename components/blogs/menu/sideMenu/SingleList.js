@@ -31,7 +31,6 @@ const SingleList = ({ list, pageOfCount, onItemClick, ...props }) => {
     // })
     const items = list.map((subject, key) => {
         const { name } = subject;
-        console.log(subject);
         return (
             <ListItem key={key} button onClick={e => { onItemClick(e, subject) }}>
                 <ListItemText primary={name} />
