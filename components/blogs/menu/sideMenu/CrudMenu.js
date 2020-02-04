@@ -4,12 +4,11 @@ import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 
 function createFolder(e, data) {
   const { dispatch } = data;
-  console.log(data)
-  dispatch({ type: 'createFolder' });
+  dispatch({ type: 'menuClickedCreate' ,payload:{type:'subject' }});
 }
 function createDoc(e, data) {
   const { dispatch } = data;
-  dispatch({ type: 'createDoc' });
+  dispatch({ type: 'menuClickedCreate' ,payload:{type:'doc' } });
 }
 function modify(e, data) {
   const { dispatch } = data;

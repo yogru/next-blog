@@ -9,11 +9,14 @@ const Container = styled.div`
   flex: 0 0 100%;
 `
 
-const Vacant = ({children,vacant,setDispatch,subjectId,...props})=>{
+const Vacant = ({children,vacant , onMouseDown, ...props})=>{
  return(
-      <Container> 
+      <Container onMouseDown ={onMouseDown}> 
            {
                vacant&&<div>비어 있습니다.</div>
+           }
+           {
+                children
            }
       </Container>         
    );

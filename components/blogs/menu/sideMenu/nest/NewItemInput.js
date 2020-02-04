@@ -40,6 +40,7 @@ const NewItemInput = ({ children,offset,value:val,error, message,
             }
             <Input id="NewItem-Input" value={value} type='text'   error={error}
                  onChange={onInputChange}
+                 autoFocus	
                  autoComplete="off" 
                  placeholder=" 입력해주세요 "
                  inputProps={{

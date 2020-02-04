@@ -4,19 +4,16 @@ import styled from 'styled-components';
 import FolderIcon from '@material-ui/icons/Folder';
 import { ListItem, ListItemText, ListItemIcon, Collapse } from '@material-ui/core';
 import Nest from './Nest';
+import DocItem from './DocItem';
+
 
 const propTypes = {
 }
 const defaultProps = {
 }
 
-function SubjectItem({ subject,setDispatch,offset,toggle:propsToggle }) {
+function SubjectItem({ children,subject,onClick,toggle }) {
     const {name, _id}= subject;
-    const [toggle,setToggle] = useState(propsToggle)
-
-    function onClick(e) {
-        setToggle(!toggle);
-    }
     return (
         <div>
             <ListItem button onClick={onClick}>
@@ -25,12 +22,12 @@ function SubjectItem({ subject,setDispatch,offset,toggle:propsToggle }) {
                 </ListItemIcon>
                 <ListItemText primary={name} />
             </ListItem>
-
-            <Collapse in={toggle} timeout="auto" unmountOnExit>
-                <Nest parentSubjectId={_id} offset={offset + 0.5}
-                    setDispatch={setDispatch} />
-            </Collapse>
-
+            {
+               toggle &&
+               <Collapse in timeout="auto" unmountOnExit>
+                   {children}
+               </Collapse>
+            }
         </div>
     )
 }
