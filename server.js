@@ -44,16 +44,13 @@ app.prepare().then( ()=>{
     const server = express();
 
     server.use(express.static('out'));
-    //
     server.use(express.static('public'));
 
     server.use(bodyParser.json());
     server.use(bodyParser.urlencoded({ extended: true }));
-
     //rest
-    server.use('/post',require('./rest/post'));
-    server.use('/subject',require('./rest/subject'));
-
+    server.use('/rest/post',require('./rest/post'));
+    server.use('/rest/subject',require('./rest/subject'));
     
     server.get('/' ,  (req, res)=>{
         res.redirect('/home');

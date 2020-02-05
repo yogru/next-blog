@@ -10,8 +10,8 @@ export default function useLoadMenuData(parentID){
   const [loadDoc, docPending] = useSelector(loadSelector(docState), [parentID]);
   const [loadSubject, subPending] = useSelector(loadSelector(subState), [parentID]);
   useEffect(() => {
-      dispatch(loadAction(docState, `http://localhost:3000/post/titles/${parentID}`));
-      dispatch(loadAction(subState, `http://localhost:3000/subject/parent/${parentID}`));
+      dispatch(loadAction(docState, `http://localhost:3000/rest/post/titles/${parentID}`));
+      dispatch(loadAction(subState, `http://localhost:3000/rest/subject/parent/${parentID}`));
   }, [parentID]);
 
    if(docPending === true || subPending===true  ) 

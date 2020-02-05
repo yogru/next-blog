@@ -87,7 +87,6 @@ export default SingleList;
 // rest 페이징 요청하는 쓰는 코드랑 중복될거같은데. 통합하면 좋을듯.
 // 나중에 통합해야될듯.
 
-
 // function createCircleNum(cycleMax) {
 //     return (cur, plus) => {
 //         let nextIdx = cur + plus;

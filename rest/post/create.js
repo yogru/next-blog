@@ -6,8 +6,9 @@ module.exports = async (req, res) => {
   const { title, subjectID, writer, body, comment }
     = req.body;
   const { error } = POST.validate({
-    title ,subjectID, writer, body, comment
+    title ,subjectID,
   });
+  console.log(error, req.body , 'zzzzzz')
   if (error) {
     res.status(404).send({});
     console.log(error);

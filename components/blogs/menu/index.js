@@ -5,7 +5,6 @@ import SideMenu from './sideMenu';
 
 const propTypes={
   sideOpen:PropTypes.bool,
-  drawerWidth:PropTypes.number,
 }
 const defaultProps = {
    sideOpen:false,
@@ -13,18 +12,13 @@ const defaultProps = {
 
 function Menu({drawerWidth,...props}) {
   const [sideOpen, setSideOpen] = useState(props.sideOpen);
-
   const handleSideOpen = () => {
     setSideOpen(true);
   };
-  const handleSideClose = () => {
-    setSideOpen(false);
-  };
-
   return (
     <>
        <TopMenu  handleSideOpen={handleSideOpen} />
-       <SideMenu open={sideOpen} drawerWidth={drawerWidth} handleClose={handleSideClose}/>
+       <SideMenu open={sideOpen} setSideOpen={setSideOpen} />
     </>
   );
 }

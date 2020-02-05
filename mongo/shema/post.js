@@ -10,7 +10,7 @@ POST.add({
   subjectID:{type:mongoose.ObjectId,required:true},
   time:{type: Date, default: Date.now},
   writer:{type:String ,default:'kyb'},
-  body:{type:String},
+  body:{type:String ,default:''},
   imgesSrc:[String],
   comment:[COMMENT.schema],
 })
@@ -19,11 +19,11 @@ POST.index({subjectID:-1,title:-1 },{unique: true});
 
 const joiObjectKeys = {
   title:Joi.string().required(),
-  writer:Joi.string(),
   subjectID:Joi.objectId(),
-  body:Joi.string().required(),
-  imgesSrc:Joi.array().items(Joi.string()),
-  comment:Joi.array().items(COMMENT.joiObjectKeys),
+  // writer:Joi.string(),
+  // body:Joi.string().required(),
+  // imgesSrc:Joi.array().items(Joi.string()),
+  // comment:Joi.array().items(COMMENT.joiObjectKeys),
 }
 
 const joiSchema= Joi.object().keys(joiObjectKeys);

@@ -2,7 +2,7 @@ import React from 'react'
 import {Provider} from 'react-redux'
 import App from 'next/app'
 import {withNextReduxSaga} from '../store';
-import '../static/css/contextMenu.css';
+import '../public/css/contextMenu.css';
 import 'quill/dist/quill.snow.css';
 
 class MyApp extends App {

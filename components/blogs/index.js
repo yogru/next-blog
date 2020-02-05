@@ -6,19 +6,17 @@ import PropTypes from 'prop-types';
 
 const propTypes={
     sideMenuOpen:PropTypes.bool,
-    drawerWidth:PropTypes.number,
 }
 const defaultProps= {
     sideMenuOpen:false,
-    drawerWidth:240,
 }
  function Blog({children,...props}) {
-    const {sideMenuOpen,drawerWidth} = props;
+    const {sideMenuOpen} = props;
     const {root,content ,contentHeader} =  useStyles(props);
     return (
         <div className={root}>
             <CssBaseline />
-            <Menu sideOpen={sideMenuOpen} drawerWidth={drawerWidth} />
+            <Menu sideOpen={sideMenuOpen} />
             <main className={content}>
                 <div className={contentHeader} />
                 {children}
@@ -49,7 +47,6 @@ const useStyles = makeStyles(theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-         marginLeft:-props.drawerWidth
     }),
 }));
 

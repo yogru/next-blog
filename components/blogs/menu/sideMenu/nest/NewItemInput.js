@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     root: offset => {
         offset = offset || 0.5;
         return {
-            paddingLeft: `${offset+1}rem`,
+            paddingLeft: `${offset}rem`,
             maxWidth: 240,
         }
     }

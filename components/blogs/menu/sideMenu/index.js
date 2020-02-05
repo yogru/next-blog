@@ -16,28 +16,37 @@ const propTypes = {
 const defaultProps = {
   open: false,
   pageOfCount: 13,
+  drawerWidth:240
 }
 
 function SideMenu({ children, ...props }) {
-  const { open, handleClose } = props;
+  const { open, setSideOpen } = props;
   const { drawer, drawerPaper } = useStyles(props);
+
   const [loadList , pendding]= useSelector(loadSelector('menuList'));
   const [curSubject, setCurSubject] =  useState();
   
+  const onClose= (e)=>{
+    setSideOpen(false);
+  }
+
   function titleClick() {
-    if (!curSubject) return handleClose;
-    return (e) => {
-        setCurSubject(undefined);
+    return (e)=>{
+       if(!curSubject){
+          onClose(e);
+         return;
+       }
+       setCurSubject(undefined);
     }
   }
 
   return (
-    <Drawer anchor='left' className={drawer} open={open}
-      variant="persistent"
+    <Drawer anchor='left' className={drawer} open={open} 
+      onClose={onClose}
       classes={{ paper: drawerPaper }}
     >
       <Header title={curSubject?curSubject.name:undefined} 
-          onClose={handleClose}
+          onClose={onClose}
         onTitleClick={titleClick()} />
       <Divider/>
          {

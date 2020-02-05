@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { NAME_SPACE as write, changeFieldAction } from '../actions/write'
 import { sendAction } from '../actions/send'
 import TitleInput from './TitleInput'
-import CategorySelect from './CategorySelect'
 import { Box } from '@material-ui/core';
 import SendBtn from './SendBtn'
 
@@ -20,8 +19,7 @@ const quilOpt = {
             name: 'img', // custom form name
             withCredentials: false, // withCredentials
             callbackOK: ({ path }, next) => {
-                //console.log(path);
-                console.log(this, next);
+                console.log('image.',path,this, next);
                 next(path);
             },
             callbackKO: serverError => {
@@ -79,7 +77,7 @@ function Editor({ categoryList }) {
             console.log('hi..');
             const sub = [...subjects,title ];
             const payload = {
-                url: 'http://localhost:3000/post/',
+                url: 'http://localhost:3000/rest/post/',
                 data: { title,subjects:sub, body },
                 onSuccess: (data) => { console.log('suc:',data) },
                 onFailure: (res) => { console.log(res) },
@@ -89,11 +87,6 @@ function Editor({ categoryList }) {
     }
     return (
         <EditorBlock>
-            <CategorySelect list={categoryList}
-                onChange={(e, subjects) => {
-                    changeEvent({ key: 'subjects', value: [...subjects] });
-                }}
-            />
             <TitleInput placeholder="제목을 입력하세요 "
                 onChange={e => { changeEvent({ key: 'title', value: e.target.value }); }} />
 
