@@ -13,10 +13,11 @@ const router = express.Router();
 
 //create
 router.post('/',create);
-
 //read
+router.get('/',read.readById);
+router.get('/:id',read.readById);
+
 router.get('/titles/:subjectID' ,read.getTitleBySubjectID);
-router.get('/:id',middleWareValidObjectID,read.readById);
 
 // router.get('/subject' ,read.readSubjects);
 // router.get('/subject/:subject' ,read.readPostBySubject);

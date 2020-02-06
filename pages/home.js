@@ -32,13 +32,13 @@ class Home extends Component {
     // //   cardData,cardPending,listPending} = this.props;
     // console.log(menuList);
     const {postPending  , curPost} = this.props;
-
     return (
      <BlogTemplte >
-           {
+       home 이지롱~
+           {/* {
               (postPending!==undefined&&!postPending)
                 &&<PostView  post = {curPost.data.doc} />
-           }
+           } */}
      </BlogTemplte >
     )
   }

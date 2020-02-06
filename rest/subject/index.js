@@ -14,7 +14,6 @@ router.post('/',create);
 router.get('/:id',middleWareValidObjectID,read.readByID);
 router.get('/parent/:parentSubject' ,read.subjectsByPID);
 
-// //read
 // router.get('/subject' ,read.readSubjects);
 // router.get('/subject/:subject' ,read.readPostBySubject);
 // router.get('/:id',middleWareValidObjectID,read.readById);

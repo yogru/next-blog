@@ -1,23 +1,47 @@
-import { useRouter } from 'next/router'
-import Link from 'next/link'
+import {Component} from 'react'
+import BlogTemplte from '../../components/blogs';
+import { loadAction } from '../../actions/load';
+import mergeMapStateToProps from '../../selector/mergeMapStateToProps'
+import loadSelector from '../../selector/connectLoad'
+import PostView from '../../components/blogs/PostView';
 
-const Post = () => {
-  const router = useRouter()
-  const { id, mode } = router.query
+import { connect } from 'react-redux'
 
-  console.log(router.query, mode)
-  return (
-    <>
-         {id}
-    </>
+const mapStateToProps = mergeMapStateToProps([
+  loadSelector('post', ["post", "postPending"]),
+])
+
+class Post extends Component{
+  static async getInitialProps({store , query}) {
+     console.log('initial..',store ,query );
+    store.dispatch(loadAction('menuList',"http://localhost:3000/rest/subject/parent/null"));
+    store.dispatch(loadAction('post', `http://localhost:3000/rest/post/${query.id}`));
+    return {
+          mode: query.mode || 'view'
+     }
+
+ }
+ render() {
+     const {mode  , post ,postPending } = this.props;
+     console.log(mode ,post ,postPending );
+
+  return(
+    <BlogTemplte>
+      { 
+       !postPending? 
+          mode==='view'? 
+            <PostView  post = {post.data.doc} /> :
+            "edit mode":
+        "loading"    
+      }
+    </BlogTemplte>
   )
+
+ }
+
 }
-
-export default Post;
-
-
+export default connect(mapStateToProps)(Post);
 /////////////
-
 /*
 
 import React, { Component } from 'react'

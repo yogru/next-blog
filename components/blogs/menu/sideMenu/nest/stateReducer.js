@@ -11,7 +11,7 @@ const stateReducer = partActionReducer({
       draft.target = payload;
    },
    'menuClickedCreate': (draft, { payload: { createType } }, state) => {
-      const { type, data } = state.target;
+      const { data } = state.target;
       let targetId = data._id || 'vacant';
       if (createType === 'doc') targetId = 'vacant';
       draft.createInfo = {
